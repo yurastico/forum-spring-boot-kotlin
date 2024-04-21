@@ -1,16 +1,21 @@
 package com.yurastico.forum.service
 
-import com.yurastico.forum.dto.NewTopicDto
+import com.yurastico.forum.dto.NewTopicForm
+import com.yurastico.forum.dto.TopicView
+import com.yurastico.forum.mapper.TopicFormMapper
+import com.yurastico.forum.mapper.TopicViewMapper
 import com.yurastico.forum.model.Course
 import com.yurastico.forum.model.Topic
 import com.yurastico.forum.model.User
 import org.springframework.stereotype.Service
 import java.util.*
+import java.util.stream.Collectors
 
 
 @Service
 class TopicService(private var topics: List<Topic>,
-        private val courseService: CourseService) {
+        private val topicViewMapper: TopicViewMapper,
+        private val topicFormMapper: TopicFormMapper) {
     init {
         val topic = Topic(
                 id = 1,
@@ -29,24 +34,22 @@ class TopicService(private var topics: List<Topic>,
         )
         topics = Arrays.asList(topic,topic,topic)
     }
-    fun list(): List<Topic> {
-        return topics
+    fun list(): List<TopicView> {
+        return topics.stream().map {
+            t -> topicViewMapper.map(t)
+        }.collect(Collectors.toList())
     }
 
-    fun findById(id: Long): Topic {
-        return topics.stream().filter { t ->
+    fun findById(id: Long): TopicView {
+        val topic = topics.stream().filter { t ->
             t.id == id
         }.findFirst().get()
+        return topicViewMapper.map(topic)
     }
 
-    fun createTopic(dto: NewTopicDto) {
-
-        topics.plus(Topic(
-                title = dto.title,
-                message = dto.message,
-                course =
-        ))
+    fun createTopic(form: NewTopicForm) {
+        val topic = topicFormMapper.map(form)
+        topic.id = topics.size.toLong() + 1
+        topics.plus(topic)
     }
-
-
 }

@@ -4,7 +4,7 @@ import java.time.LocalDate
 import java.time.LocalDateTime
 
 data class Topic(
-        val id: Long? = null,
+        var id: Long? = null,
         val title: String,
         var message: String,
         val createdAt: LocalDateTime = LocalDateTime.now(),
