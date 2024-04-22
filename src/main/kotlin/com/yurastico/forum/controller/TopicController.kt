@@ -2,6 +2,7 @@ package com.yurastico.forum.controller
 
 import com.yurastico.forum.dto.NewTopicForm
 import com.yurastico.forum.dto.TopicView
+import com.yurastico.forum.dto.UpdateTopicForm
 import com.yurastico.forum.model.Topic
 import com.yurastico.forum.service.TopicService
 import jakarta.validation.Valid
@@ -23,6 +24,10 @@ class TopicController(private val service: TopicService) {
     @PostMapping
     fun createTopic(@RequestBody @Valid topic: NewTopicForm) {
         service.createTopic(topic)
+    }
+    @PutMapping
+    fun updateTopic(@RequestBody @Valid topic: UpdateTopicForm) {
+        service.updateTopic(topic)
     }
 
 }

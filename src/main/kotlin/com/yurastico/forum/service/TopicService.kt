@@ -2,6 +2,7 @@ package com.yurastico.forum.service
 
 import com.yurastico.forum.dto.NewTopicForm
 import com.yurastico.forum.dto.TopicView
+import com.yurastico.forum.dto.UpdateTopicForm
 import com.yurastico.forum.mapper.TopicFormMapper
 import com.yurastico.forum.mapper.TopicViewMapper
 import com.yurastico.forum.model.Course
@@ -51,5 +52,23 @@ class TopicService(private var topics: List<Topic>,
         val topic = topicFormMapper.map(form)
         topic.id = topics.size.toLong() + 1
         topics.plus(topic)
+    }
+
+    fun updateTopic(form: UpdateTopicForm) {
+        val topic = topics.stream().filter { t ->
+            t.id == form.id
+        }.findFirst().get()
+        topics = topics.minus(topic).plus(Topic(
+                id = form.id,
+                title = form.tile,
+                message = form.message,
+                author = topic.author,
+                course = topic.course,
+                answers = topic.answers,
+                status = topic.status,
+                createdAt = topic.createdAt
+
+
+        ))
     }
 }
