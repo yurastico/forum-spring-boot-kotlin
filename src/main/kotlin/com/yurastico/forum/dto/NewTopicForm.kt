@@ -5,7 +5,7 @@ import jakarta.validation.constraints.NotNull
 import jakarta.validation.constraints.Size
 
 data class NewTopicForm(
-        @field:NotEmpty @Size(min = 5, max = 100)
+        @field:NotEmpty @Size(min = 5, max = 100, message = "Cant be empty")
         val title: String,
         @field:NotEmpty
         val message: String,
