@@ -3,6 +3,7 @@ package com.yurastico.forum.service
 import com.yurastico.forum.dto.NewTopicForm
 import com.yurastico.forum.dto.TopicView
 import com.yurastico.forum.dto.UpdateTopicForm
+import com.yurastico.forum.exception.NotFoundException
 import com.yurastico.forum.mapper.TopicFormMapper
 import com.yurastico.forum.mapper.TopicViewMapper
 import com.yurastico.forum.model.Course
@@ -16,7 +17,8 @@ import java.util.stream.Collectors
 @Service
 class TopicService(private var topics: List<Topic>,
         private val topicViewMapper: TopicViewMapper,
-        private val topicFormMapper: TopicFormMapper) {
+        private val topicFormMapper: TopicFormMapper,
+        private val notFoundMessage: String = "Topic not found") {
     init {
         val topic = Topic(
                 id = 1,
@@ -44,7 +46,7 @@ class TopicService(private var topics: List<Topic>,
     fun findById(id: Long): TopicView {
         val topic = topics.stream().filter { t ->
             t.id == id
-        }.findFirst().get()
+        }.findFirst().orElseThrow{NotFoundException(notFoundMessage)}
         return topicViewMapper.map(topic)
     }
 
@@ -58,7 +60,7 @@ class TopicService(private var topics: List<Topic>,
     fun updateTopic(form: UpdateTopicForm): TopicView {
         val topic = topics.stream().filter { t ->
             t.id == form.id
-        }.findFirst().get()
+        }.findFirst().orElseThrow{NotFoundException(notFoundMessage)}
         val newTopic = Topic(
                 id = form.id,
                 title = form.title,
@@ -78,7 +80,7 @@ class TopicService(private var topics: List<Topic>,
     fun deleteTopic(id: Long) {
         val topic = topics.stream().filter { t ->
             t.id == id
-        }.findFirst().get()
+        }.findFirst().orElseThrow{NotFoundException(notFoundMessage)}
         topics = topics.minus(topic)
     }
 }
