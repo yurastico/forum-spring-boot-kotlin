@@ -5,6 +5,7 @@ import com.yurastico.forum.dto.TopicView
 import com.yurastico.forum.dto.UpdateTopicForm
 import com.yurastico.forum.model.Topic
 import com.yurastico.forum.service.TopicService
+import jakarta.transaction.Transactional
 import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -26,6 +27,7 @@ class TopicController(private val service: TopicService) {
         return service.findById(id)
     }
     @PostMapping
+    @Transactional
     fun createTopic(@RequestBody @Valid topic: NewTopicForm,
                     uriBuilder: UriComponentsBuilder): ResponseEntity<TopicView> {
         val topicView = service.createTopic(topic)
@@ -33,6 +35,7 @@ class TopicController(private val service: TopicService) {
         return ResponseEntity.created(uri).body(topicView)
     }
     @PutMapping
+    @Transactional
     fun updateTopic(@RequestBody @Valid topic: UpdateTopicForm): ResponseEntity<TopicView> {
         val topicView = service.updateTopic(topic)
         return ResponseEntity.ok(topicView)
@@ -40,6 +43,7 @@ class TopicController(private val service: TopicService) {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
+    @Transactional
     fun deleteTopic(@PathVariable id: Long) {
         service.deleteTopic(id)
     }
