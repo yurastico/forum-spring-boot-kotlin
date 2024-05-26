@@ -10,6 +10,8 @@ import com.yurastico.forum.model.Course
 import com.yurastico.forum.model.Topic
 import com.yurastico.forum.model.User
 import com.yurastico.forum.repository.TopicRepository
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 import java.util.*
 import java.util.stream.Collectors
@@ -21,10 +23,17 @@ class TopicService(private val topicRepository: TopicRepository,
         private val topicFormMapper: TopicFormMapper,
         private val notFoundMessage: String = "Topic not found") {
 
-    fun list(): List<TopicView> {
-        return topicRepository.findAll().stream().map {
+    fun list(courseName: String?,
+             pagination: Pageable
+             ): Page<TopicView> {
+        val topics = if (courseName == null) {
+            topicRepository.findAll(pagination)
+        } else {
+            topicRepository.findByCourseName(courseName,pagination)
+        }
+        return topics.map {
             t -> topicViewMapper.map(t)
-        }.collect(Collectors.toList())
+        }
     }
 
     fun findById(id: Long): TopicView {
