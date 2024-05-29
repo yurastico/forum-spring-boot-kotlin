@@ -1,6 +1,7 @@
 package com.yurastico.forum.controller
 
 import com.yurastico.forum.dto.NewTopicForm
+import com.yurastico.forum.dto.TopicPerCategoryDto
 import com.yurastico.forum.dto.TopicView
 import com.yurastico.forum.dto.UpdateTopicForm
 import com.yurastico.forum.model.Topic
@@ -59,6 +60,11 @@ class TopicController(private val service: TopicService) {
     @CacheEvict(value = ["topics"], allEntries = true)
     fun deleteTopic(@PathVariable id: Long) {
         service.deleteTopic(id)
+    }
+
+    @GetMapping("/info")
+    fun info(): List<TopicPerCategoryDto> {
+        return service.info()
     }
 
 }

@@ -1,6 +1,7 @@
 package com.yurastico.forum.service
 
 import com.yurastico.forum.dto.NewTopicForm
+import com.yurastico.forum.dto.TopicPerCategoryDto
 import com.yurastico.forum.dto.TopicView
 import com.yurastico.forum.dto.UpdateTopicForm
 import com.yurastico.forum.exception.NotFoundException
@@ -10,6 +11,7 @@ import com.yurastico.forum.model.Course
 import com.yurastico.forum.model.Topic
 import com.yurastico.forum.model.User
 import com.yurastico.forum.repository.TopicRepository
+import jakarta.persistence.EntityManager
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
@@ -21,6 +23,7 @@ import java.util.stream.Collectors
 class TopicService(private val topicRepository: TopicRepository,
         private val topicViewMapper: TopicViewMapper,
         private val topicFormMapper: TopicFormMapper,
+                   private val entityManager: EntityManager
         private val notFoundMessage: String = "Topic not found") {
 
     fun list(courseName: String?,
@@ -58,5 +61,9 @@ class TopicService(private val topicRepository: TopicRepository,
 
     fun deleteTopic(id: Long) {
         topicRepository.deleteById(id)
+    }
+
+    fun info(): List<TopicPerCategoryDto> {
+        return topicRepository.info()
     }
 }
