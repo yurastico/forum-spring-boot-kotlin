@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.Query
 
 interface TopicRepository: JpaRepository<Topic,Long> {
     fun findByCourseName(courseName: String,pagination: Pageable): Page<Topic>
-    @Query("select new com.yurastico.forum.dto.TopicPerCategory course.category, count(t)")
-    fun info(): List<TopicPerCategoryDto>
+    //@Query("SELECT new com.yurastico.forum.dto.TopicPerCategoryDto(course.category, count(t)) FROM Topic AS t INNER JOIN Course AS c ON t.course_id = c.id GROUP BY c.category")
+    //fun info(): List<TopicPerCategoryDto>
 }
+

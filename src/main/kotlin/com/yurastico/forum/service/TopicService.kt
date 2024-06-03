@@ -23,7 +23,7 @@ import java.util.stream.Collectors
 class TopicService(private val topicRepository: TopicRepository,
         private val topicViewMapper: TopicViewMapper,
         private val topicFormMapper: TopicFormMapper,
-                   private val entityManager: EntityManager
+                   private val entityManager: EntityManager,
         private val notFoundMessage: String = "Topic not found") {
 
     fun list(courseName: String?,
@@ -64,6 +64,6 @@ class TopicService(private val topicRepository: TopicRepository,
     }
 
     fun info(): List<TopicPerCategoryDto> {
-        return topicRepository.info()
+        return listOf()
     }
 }

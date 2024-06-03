@@ -7,7 +7,6 @@ import org.springframework.cache.annotation.EnableCaching
 @SpringBootApplication
 @EnableCaching
 class ForumApplication
-
 fun main(args: Array<String>) {
 	runApplication<ForumApplication>(*args)
 }

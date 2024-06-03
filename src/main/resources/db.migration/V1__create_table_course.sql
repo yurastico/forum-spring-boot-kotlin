@@ -1,4 +1,4 @@
-create table course(
+create table Course(
     id bigint not null auto_increment,
     name varchar(50) not null,
     category varchar(50) not null,

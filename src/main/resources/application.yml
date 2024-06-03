@@ -1,12 +1,13 @@
 spring:
   datasource:
-    driverClassName: org.h2.Driver
-    url: jdbc:h2:mem:forum
-    username: sa
-    password:
+    url: jdbc:mysql://localhost:3306/forum_api
+    username: root
+    password: root507075
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
     properties:
       hibernate:
         show_sql: true
         format_sql: true
+
+# To access Mysql: mysql -u root -p

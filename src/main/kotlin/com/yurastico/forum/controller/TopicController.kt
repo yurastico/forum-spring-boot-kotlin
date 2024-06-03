@@ -28,7 +28,8 @@ class TopicController(private val service: TopicService) {
     @GetMapping
     @Cacheable("topics")
     fun list(@RequestParam(required = false) courseName: String?,
-             @PageableDefault(size = 15, sort = ["created_at"], direction = Sort.Direction.DESC) pagination: Pageable): Page<TopicView> {
+             //@PageableDefault(size = 15, sort = ["createdAt"], direction = Sort.Direction.DESC)
+             pagination: Pageable): Page<TopicView> {
         return service.list(courseName,pagination)
 
     }
