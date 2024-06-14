@@ -32,7 +32,7 @@ class TopicService(private val topicRepository: TopicRepository,
         val topics = if (courseName == null) {
             topicRepository.findAll(pagination)
         } else {
-            topicRepository.findByCourseName(courseName,pagination)
+            return Page.empty()
         }
         return topics.map {
             t -> topicViewMapper.map(t)

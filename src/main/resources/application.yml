@@ -4,10 +4,17 @@ spring:
     username: root
     password: root507075
   jpa:
-    database-platform: org.hibernate.dialect.H2Dialect
     properties:
       hibernate:
         show_sql: true
         format_sql: true
+
+management:
+  endpoints:
+    enabled-by-default: false
+    web:
+      exposure:
+        include: "*" # * for all metrics
+
 
 # To access Mysql: mysql -u root -p
