@@ -1,0 +1,5 @@
+spring:
+  profiles:
+    active: dev
+
+# need to search why this doesnt work @activatedProperties@
