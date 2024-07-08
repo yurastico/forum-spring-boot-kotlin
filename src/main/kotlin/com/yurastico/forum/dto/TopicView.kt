@@ -1,6 +1,7 @@
 package com.yurastico.forum.dto
 
 import com.yurastico.forum.model.TopicStatus
+import java.time.LocalDate
 import java.time.LocalDateTime
 
 data class TopicView(
@@ -8,5 +9,6 @@ data class TopicView(
         val title: String,
         val message: String,
         val status: TopicStatus,
-        val createdAt: LocalDateTime
+        val createdAt: LocalDateTime,
+        val modifiedAt: LocalDate?
 )

@@ -18,6 +18,7 @@ data class Topic(
         @Enumerated(value = EnumType.STRING)
         val status: TopicStatus = TopicStatus.NOT_ANSWERED,
         @OneToMany(mappedBy = "topic")
-        val answers: List<TopicResponse> = ArrayList()
+        val answers: List<TopicResponse> = ArrayList(),
+        var modifiedAt: LocalDate? = null
 
 )

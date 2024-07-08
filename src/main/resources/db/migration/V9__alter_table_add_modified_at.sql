@@ -1,0 +1,1 @@
+ALTER TABLE topic add column modified_at date;

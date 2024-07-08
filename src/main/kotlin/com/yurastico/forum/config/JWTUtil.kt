@@ -2,7 +2,6 @@ package com.yurastico.forum.config
 
 import com.yurastico.forum.model.User
 import io.jsonwebtoken.Jwts
-import io.jsonwebtoken.SignatureAlgorithm
 import io.jsonwebtoken.security.Keys
 import jakarta.annotation.PostConstruct
 import org.springframework.security.core.Authentication;

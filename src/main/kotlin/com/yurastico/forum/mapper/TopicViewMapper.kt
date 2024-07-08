@@ -13,6 +13,7 @@ class TopicViewMapper: Mapper<Topic,TopicView> {
                 title = t.title,
                 message = t.message,
                 createdAt = t.createdAt,
-                status = t.status)
+                status = t.status,
+                modifiedAt = t.modifiedAt)
     }
 }

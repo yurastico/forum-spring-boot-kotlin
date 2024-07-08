@@ -15,6 +15,7 @@ import jakarta.persistence.EntityManager
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
+import java.time.LocalDate
 import java.util.*
 import java.util.stream.Collectors
 
@@ -23,7 +24,7 @@ import java.util.stream.Collectors
 class TopicService(private val topicRepository: TopicRepository,
         private val topicViewMapper: TopicViewMapper,
         private val topicFormMapper: TopicFormMapper,
-                   private val entityManager: EntityManager,
+//                   private val entityManager: EntityManager,
         private val notFoundMessage: String = "Topic not found") {
 
     fun list(courseName: String?,
@@ -55,6 +56,7 @@ class TopicService(private val topicRepository: TopicRepository,
 
         topic.title = form.title
         topic.message = form.message
+        topic.modifiedAt = LocalDate.now()
 
         return topicViewMapper.map(topic)
     }

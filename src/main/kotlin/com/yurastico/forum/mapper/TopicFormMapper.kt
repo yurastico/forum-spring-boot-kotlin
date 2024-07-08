@@ -18,7 +18,8 @@ class TopicFormMapper(
                 title = t.title,
                 message = t.message,
                 course = courseService.findById(t.idCourse),
-                author = userService.findById(t.idAuthor)
+                author = userService.findById(t.idAuthor),
+                modifiedAt = t.modifiedAt
         )
     }
 
